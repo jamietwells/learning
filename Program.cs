@@ -25,12 +25,36 @@ int askNumber(string question)
 string askQuestion(string question, params string[] options)
 {
     Console.WriteLine(question);
-    string userOption = Console.ReadLine();
-
-    while (!options.Contains(userOption))
+    int listNumber = 1;
+    foreach (string option in options)
     {
-        Console.WriteLine("Incorrect option, pick again");
+        Console.Write(listNumber);
+        Console.Write(" ");
+        Console.WriteLine(option);
+        listNumber++;
+    }
+    string userOption = Console.ReadLine();
+    int result;
+    while (!int.TryParse(userOption, out result))
+    {
+        Console.WriteLine("Please enter a number");
         userOption = Console.ReadLine();
     }
-    return userOption;
+
+    while (result > options.Length || result <= 0)
+    {
+        Console.WriteLine("Please enter a valid number");
+        userOption = Console.ReadLine();
+        while (!int.TryParse(userOption, out result))
+        {
+            Console.WriteLine("Please enter a number");
+            userOption = Console.ReadLine();
+        }
+    }
+
+    result--;
+    return options[result];
 }
+
+// Console.WriteLine("An enemy orc has appeared. What would you like to do?":);
+// Console.WriteLine("")
