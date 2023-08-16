@@ -22,6 +22,17 @@ int askNumber(string question)
     return result;
 }
 
+int GetNumber()
+{
+    string userOption = Console.ReadLine();
+    int result;
+      while (!int.TryParse(userOption, out result))
+    {
+        Console.WriteLine("Please enter a number");
+        userOption = Console.ReadLine();
+    }
+    return result;
+}
 string askQuestion(string question, params string[] options)
 {
     Console.WriteLine(question);
@@ -33,28 +44,15 @@ string askQuestion(string question, params string[] options)
         Console.WriteLine(option);
         listNumber++;
     }
-    string userOption = Console.ReadLine();
-    int result;
-    while (!int.TryParse(userOption, out result))
-    {
-        Console.WriteLine("Please enter a number");
-        userOption = Console.ReadLine();
-    }
-
+    int result = GetNumber();
     while (result > options.Length || result <= 0)
     {
         Console.WriteLine("Please enter a valid number");
-        userOption = Console.ReadLine();
-        while (!int.TryParse(userOption, out result))
-        {
-            Console.WriteLine("Please enter a number");
-            userOption = Console.ReadLine();
-        }
+        result = GetNumber();
     }
-
     result--;
     return options[result];
 }
 
-// Console.WriteLine("An enemy orc has appeared. What would you like to do?":);
-// Console.WriteLine("")
+askQuestion("An orc has appeared. What would you like to do?", "Fight", "Run", "Use an item");
+
